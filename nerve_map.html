@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spinal Nerve Map — Abbott Chiropractic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #0d0f14;
+  --bg2:       #13161e;
+  --bg3:       #1a1e2a;
+  --border:    rgba(255,255,255,0.07);
+  --border2:   rgba(255,255,255,0.13);
+  --text:      #e8e6df;
+  --muted:     #7a7870;
+  --subtle:    #4a4844;
+
+  --cranial:  #8b7fd4;
+  --cervical: #5a9fd4;
+  --thoracic: #3db389;
+  --lumbar:   #d4934a;
+  --sacral:   #c46a8a;
+
+  --cranial-dim:  rgba(139,127,212,0.12);
+  --cervical-dim: rgba(90,159,212,0.12);
+  --thoracic-dim: rgba(61,179,137,0.12);
+  --lumbar-dim:   rgba(212,147,74,0.12);
+  --sacral-dim:   rgba(196,106,138,0.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── layout ── */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+/* ── header ── */
+.header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.header-eyebrow {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.header h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.header h1 em {
+  font-style: italic;
+  color: var(--cranial);
+}
+.header-sub {
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ── main grid ── */
+.main-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 0;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  min-height: 640px;
+}
+
+/* ── sidebar ── */
+.sidebar {
+  border-right: 1px solid var(--border);
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--subtle);
+  padding: 0 20px 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+
+.region-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  transition: background .15s;
+  border-left: 2px solid transparent;
+  position: relative;
+}
+.region-btn:hover { background: rgba(255,255,255,0.03); }
+.region-btn.active { background: rgba(255,255,255,0.05); }
+
+.region-pip {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: transform .2s;
+}
+.region-btn.active .region-pip { transform: scale(1.4); }
+
+.region-text {}
+.region-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  display: block;
+  margin-bottom: 1px;
+}
+.region-levels {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.region-btn[data-r="cranial"]  { border-left-color: transparent; }
+.region-btn[data-r="cranial"].active  { border-left-color: var(--cranial); }
+.region-btn[data-r="cervical"].active { border-left-color: var(--cervical); }
+.region-btn[data-r="thoracic"].active { border-left-color: var(--thoracic); }
+.region-btn[data-r="lumbar"].active   { border-left-color: var(--lumbar); }
+.region-btn[data-r="sacral"].active   { border-left-color: var(--sacral); }
+
+.spine-vis {
+  margin: auto 0 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+.spine-seg {
+  width: 36px;
+  height: 7px;
+  border-radius: 3px;
+  background: var(--border2);
+  transition: background .25s, transform .2s;
+  cursor: pointer;
+}
+.spine-seg:hover { transform: scaleX(1.15); }
+
+/* ── detail panel ── */
+.detail {
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.detail-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.detail-title-block {}
+.detail-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.detail-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 30px;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.detail-sub {
+  font-size: 15px;
+  color: var(--muted);
+}
+
+/* hook quote */
+.hook-quote {
+  border-left: 2px solid;
+  padding: 14px 18px;
+  border-radius: 0 8px 8px 0;
+  background: rgba(255,255,255,0.03);
+}
+.hook-quote p {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+/* info cards grid */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.info-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.info-card-label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.info-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.info-card ul li {
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+}
+.info-card ul li::before {
+  content: '';
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+/* symptoms wide card */
+.symptoms-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.symptoms-card .info-card-label { margin-bottom: 10px; }
+.symptom-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  font-size: 14px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border2);
+  color: var(--text);
+}
+
+/* levels strip */
+.levels-strip {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.level-item {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  transition: all .2s;
+  cursor: default;
+}
+.level-item:hover {
+  border-color: var(--border2);
+  color: var(--text);
+}
+
+/* CTA */
+.cta-bar {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.cta-text {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.5;
+  max-width: 380px;
+}
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: opacity .15s, transform .15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.cta-btn:hover { opacity: .85; transform: translateY(-1px); }
+.cta-btn:active { transform: translateY(0); }
+
+/* ── animations ── */
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.detail-anim {
+  animation: fadeSlide .22s ease both;
+}
+
+/* ── footer ── */
+.footer {
+  margin-top: 48px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--subtle);
+  line-height: 1.7;
+}
+.footer a { color: var(--muted); text-decoration: none; }
+.footer a:hover { color: var(--text); }
+
+/* ── responsive ── */
+@media (max-width: 680px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0 8px;
+    flex-direction: column;
+  }
+  .spine-vis { display: none; }
+  .region-btn { padding: 10px 16px; }
+  .detail { padding: 20px; }
+  .info-grid { grid-template-columns: 1fr; }
+  .header h1 { font-size: 28px; }
+  .cta-bar { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="header">
+    <p class="header-eyebrow">Chiropractic Education</p>
+    <h1>Your nervous system<br>controls <em>everything.</em></h1>
+    <p class="header-sub">Select a region to explore which muscles, organs, and functions each section of your spine governs — and the symptoms that arise when those nerves are compromised.</p>
+  </header>
+
+  <div class="main-grid">
+
+    <!-- sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-label">Select a region</div>
+
+      <button class="region-btn active" data-r="cranial" onclick="show('cranial')">
+        <div class="region-pip" style="background:var(--cranial)"></div>
+        <div class="region-text">
+          <span class="region-name">Cranial nerves</span>
+          <span class="region-levels">CN I–XII</span>
+        </div>
+      </button>
+      <button class="region-btn" data-r="cervical" onclick="show('cervical')">
+        <div class="region-pip" style="background:var(--cervical)"></div>
+        <div class="region-text">
+          <span class="region-name">Cervical spine</span>
+          <span class="region-levels">C1 – C7</span>
+        </div>
+      </button>
+      <button class="region-btn" data-r="thoracic" onclick="show('thoracic')">
+        <div class="region-pip" style="background:var(--thoracic)"></div>
+        <div class="region-text">
+          <span class="region-name">Thoracic spine</span>
+          <span class="region-levels">T1 – T12</span>
+        </div>
+      </button>
+      <button class="region-btn" data-r="lumbar" onclick="show('lumbar')">
+        <div class="region-pip" style="background:var(--lumbar)"></div>
+        <div class="region-text">
+          <span class="region-name">Lumbar spine</span>
+          <span class="region-levels">L1 – L5</span>
+        </div>
+      </button>
+      <button class="region-btn" data-r="sacral" onclick="show('sacral')">
+        <div class="region-pip" style="background:var(--sacral)"></div>
+        <div class="region-text">
+          <span class="region-name">Sacral spine</span>
+          <span class="region-levels">S1 – S5</span>
+        </div>
+      </button>
+
+      <!-- mini spine graphic -->
+      <div class="spine-vis" id="spineVis"></div>
+    </aside>
+
+    <!-- detail panel -->
+    <div class="detail" id="detail"></div>
+
+  </div>
+
+  <footer class="footer">
+    <p>© Abbott Chiropractic</p>
+  </footer>
+
+</div>
+
+<script>
+const data = {
+  cranial: {
+    color: 'var(--cranial)',
+    colorDim: 'var(--cranial-dim)',
+    colorHex: '#8b7fd4',
+    tag: 'Brain stem origin',
+    title: 'Cranial nerves',
+    sub: '12 pairs emerging directly from the brain stem — not the spinal cord',
+    hook: 'Your brain has 12 direct nerve connections that bypass your spine entirely. Most people have never heard of them — but they\'re behind some of the most confusing, hard-to-diagnose symptoms people live with for years.',
+    levels: ['CN I','CN II','CN III','CN IV','CN V','CN VI','CN VII','CN VIII','CN IX','CN X','CN XI','CN XII'],
+    muscles: ['Muscles of facial expression (VII)','Eye movement & focus (III, IV, VI)','Jaw & chewing muscles (V)','Tongue movement (XII)','Neck: trapezius & SCM (XI)','Swallowing & voice (IX, X)'],
+    organs: ['Vision — retina to brain (II)','Hearing & balance (VIII)','Heart rate regulation (X)','Lung & airway control (X)','Stomach & gut motility (X)','Smell & taste (I, VII, IX)'],
+    symptoms: ['Chronic headaches & migraines','Tinnitus (ear ringing)','Vertigo & dizziness','Jaw pain / TMJ clicking','Facial numbness or tingling','Unexplained digestive issues','Vision disturbances','Difficulty swallowing','Neck & shoulder tension'],
+    cta: 'Upper cervical misalignment creates mechanical stress on the brain stem — where all 12 cranial nerves originate. This is why adjusting C1 and C2 can resolve symptoms that seem completely unrelated to your spine.',
+    spineSegs: [0,1],
+  },
+  cervical: {
+    color: 'var(--cervical)',
+    colorDim: 'var(--cervical-dim)',
+    colorHex: '#5a9fd4',
+    tag: 'Most mobile region',
+    title: 'Cervical spine',
+    sub: '7 vertebrae · 8 nerve roots · the most mobile region of the spine',
+    hook: 'Your cervical nerve roots don\'t stay in your neck. They travel into your head, your shoulders, your arms, and all the way into your hands. One region — five different pain locations.',
+    levels: ['C1','C2','C3','C4','C5','C6','C7','C8'],
+    muscles: ['Neck flexors & extensors','Diaphragm (C3–C5 via phrenic nerve)','Deltoid & rotator cuff (C5)','Biceps (C5–C6)','Wrist extensors (C6)','Triceps (C7)','Hand grip & intrinsics (C8–T1)'],
+    organs: ['Diaphragm & breathing (C3–C5)','Heart rate (via cervical sympathetics)','Blood pressure regulation','Head & neck blood vessels','Thyroid gland (cervical sympathetics)','Upper airway & larynx'],
+    symptoms: ['Cervicogenic headaches','Migraines & dizziness','Shoulder pain that won\'t resolve','Arm tingling or numbness','"Carpal tunnel" symptoms (C6)','Tricep weakness (C7)','Hand grip weakness','Neck stiffness & pain'],
+    cta: 'If you\'ve been treating headaches, shoulder pain, arm tingling, or hand numbness separately without improvement — and nobody has assessed your cervical spine — that is the missing piece.',
+    spineSegs: [2,3,4,5,6,7,8],
+  },
+  thoracic: {
+    color: 'var(--thoracic)',
+    colorDim: 'var(--thoracic-dim)',
+    colorHex: '#3db389',
+    tag: 'Organ innervation region',
+    title: 'Thoracic spine',
+    sub: '12 vertebrae · attached to rib cage · direct organ innervation via sympathetic chain',
+    hook: 'The thoracic spine isn\'t just about posture. Nerves from T1 to T12 directly innervate your heart, lungs, stomach, liver, gallbladder, kidneys, and adrenal glands. This is the most underestimated region in the body.',
+    levels: ['T1','T2','T3','T4','T5','T6','T7','T8','T9','T10','T11','T12'],
+    muscles: ['Intercostal muscles (respiration)','Erector spinae (posture)','Rhomboids & mid-traps','Serratus anterior','Abdominal muscles (lower T)','Latissimus dorsi'],
+    organs: ['Heart & coronary vessels (T1–T4)','Lungs & bronchi (T2–T4)','Stomach & esophagus (T5–T6)','Liver & gallbladder (T7–T8)','Spleen & pancreas (T7–T9)','Kidneys & adrenal glands (T10–T11)','Small intestine (T9–T10)'],
+    symptoms: ['Mid-back pain & stiffness','Chest tightness or pressure','Rib pain wrapping to front','Difficulty taking deep breaths','Acid reflux / digestive issues','Unexplained nausea','Right shoulder blade pain (liver)','Fatigue & stress dysregulation'],
+    cta: 'Thoracic subluxations create nerve interference to major organs. People with persistent digestive, respiratory, or cardiovascular symptoms that haven\'t been fully explained often have a thoracic component that\'s never been assessed.',
+    spineSegs: [9,10,11,12,13,14,15,16,17,18,19,20],
+  },
+  lumbar: {
+    color: 'var(--lumbar)',
+    colorDim: 'var(--lumbar-dim)',
+    colorHex: '#d4934a',
+    tag: 'Primary weight-bearing region',
+    title: 'Lumbar spine',
+    sub: '5 vertebrae · the most load-bearing section · L4–L5 is the most herniated disc in the body',
+    hook: 'The nerve from L4 travels all the way down into your knee, your shin, and your big toe. That knee pain that came from nowhere? Start looking at L3 and L4 — not the knee.',
+    levels: ['L1','L2','L3','L4','L5'],
+    muscles: ['Hip flexors (L1–L2)','Quadriceps (L2–L4)','Adductors (L2–L4)','Hamstrings (L4–S1)','Tibialis anterior / foot lift (L4)','Calf complex (L5–S1)','Glutes (L4–S1)'],
+    organs: ['Large intestine & colon (L1–L2)','Appendix region (L1)','Bladder (L1–L2 sympathetics)','Reproductive organs (L1–L2)','Inguinal & groin region','Uterus (sympathetic supply)'],
+    symptoms: ['Low back pain','Hip pain & tightness','Groin or inner thigh aching (L1–L2)','Anterior knee pain (L3)','Shin pain or "shin splints" (L4)','Sciatica — burning down the leg','Foot tingling or numbness (L5)','Calf cramping (L4–S1)'],
+    cta: 'When someone comes in with knee pain, shin pain, foot pain, or hip pain — and I trace it up the leg to a lumbar nerve root — treating the knee is treating the symptom. Find the source.',
+    spineSegs: [21,22,23,24,25],
+  },
+  sacral: {
+    color: 'var(--sacral)',
+    colorDim: 'var(--sacral-dim)',
+    colorHex: '#c46a8a',
+    tag: 'Most personal nerve region',
+    title: 'Sacral & coccygeal spine',
+    sub: 'Fused vertebrae forming the pelvic base · governs bladder, bowel, pelvic floor & sexual function',
+    hook: 'The sacral nerves control your bladder, your bowel, your pelvic floor, and your sexual function. This is the most personal and most undertalked region of the spine — and the one most connected to quality of life.',
+    levels: ['S1','S2','S3','S4','S5','Co'],
+    muscles: ['Gluteus maximus (S1–S2)','Hamstrings (S1–S2)','Calf complex & plantar flexors (S1)','Foot intrinsics (S1–S2)','Pelvic floor muscles (S2–S4)','External anal sphincter (S2–S4)'],
+    organs: ['Bladder (detrusor muscle) (S2–S4)','Uterus & cervix (S2–S4)','Prostate & seminal vesicles (S2–S4)','Rectum & sigmoid colon (S2–S4)','External genitalia (S3–S4)','Lower bowel & continence'],
+    symptoms: ['Classic sciatica — outer leg (S1)','Calf tightness & plantar fasciitis (S1)','Tailbone pain / coccydynia','Urinary urgency without infection','Incomplete bladder emptying','Pelvic floor dysfunction','Painful intercourse','Erectile / sexual dysfunction','Bowel urgency or incontinence'],
+    cta: 'People with bladder urgency, pelvic floor issues, or sexual health concerns rarely have their sacrum assessed. Many see significant improvement after sacral and lumbar chiropractic care — because clearing the nerve interference changes the function of the organs it serves.',
+    spineSegs: [26,27,28,29,30],
+  },
+};
+
+// Build spine visual segments
+function buildSpine() {
+  const vis = document.getElementById('spineVis');
+  // segments: 2 cranial indicator, 7 cervical, 12 thoracic, 5 lumbar, 5 sacral = 31
+  const segs = [
+    {r:'cranial',count:2},{r:'cervical',count:7},{r:'thoracic',count:12},{r:'lumbar',count:5},{r:'sacral',count:5}
+  ];
+  let idx = 0;
+  segs.forEach(s => {
+    const colors = {cranial:'var(--cranial)',cervical:'var(--cervical)',thoracic:'var(--thoracic)',lumbar:'var(--lumbar)',sacral:'var(--sacral)'};
+    // narrow the segments based on region
+    const widths = {cranial:28,cervical:32,thoracic:36,lumbar:32,sacral:26};
+    for(let i=0;i<s.count;i++){
+      const el = document.createElement('div');
+      el.className = 'spine-seg';
+      el.dataset.region = s.r;
+      el.dataset.idx = idx++;
+      el.style.width = widths[s.r]+'px';
+      el.onclick = ()=>show(s.r);
+      vis.appendChild(el);
+      if(i < s.count-1){
+        const gap = document.createElement('div');
+        gap.style.cssText = 'height:2px;';
+        vis.appendChild(gap);
+      }
+    }
+    // gap between regions
+    const spacer = document.createElement('div');
+    spacer.style.cssText = 'height:5px;';
+    vis.appendChild(spacer);
+  });
+  updateSpine('cranial');
+}
+
+function updateSpine(region) {
+  document.querySelectorAll('.spine-seg').forEach(s => {
+    const colors = {cranial:'var(--cranial)',cervical:'var(--cervical)',thoracic:'var(--thoracic)',lumbar:'var(--lumbar)',sacral:'var(--sacral)'};
+    if(s.dataset.region === region) {
+      s.style.background = colors[region];
+      s.style.opacity = '0.9';
+    } else {
+      s.style.background = 'var(--border2)';
+      s.style.opacity = '1';
+    }
+  });
+}
+
+function show(region) {
+  const d = data[region];
+
+  // update buttons
+  document.querySelectorAll('.region-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`[data-r="${region}"]`).classList.add('active');
+
+  // update spine
+  updateSpine(region);
+
+  // build detail
+  const detail = document.getElementById('detail');
+  detail.innerHTML = `
+    <div class="detail-anim">
+      <div class="detail-header">
+        <div class="detail-title-block">
+          <span class="detail-tag" style="background:${d.colorDim};color:${d.colorHex}">${d.tag}</span>
+          <div class="detail-title">${d.title}</div>
+          <div class="detail-sub">${d.sub}</div>
+        </div>
+      </div>
+
+      <div class="hook-quote" style="border-color:${d.colorHex}">
+        <p>"${d.hook}"</p>
+      </div>
+
+      <div>
+        <div class="info-card-label" style="font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Levels</div>
+        <div class="levels-strip">
+          ${d.levels.map(l=>`<div class="level-item" style="border-color:${d.colorHex}22;color:${d.colorHex}">${l}</div>`).join('')}
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-card-label">Muscles controlled</div>
+          <ul>
+            ${d.muscles.map(m=>`<li><span style="background:${d.colorHex};width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:5px;display:inline-block"></span>${m}</li>`).join('')}
+          </ul>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">Organs &amp; systems innervated</div>
+          <ul>
+            ${d.organs.map(o=>`<li><span style="background:${d.colorHex};width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:5px;display:inline-block"></span>${o}</li>`).join('')}
+          </ul>
+        </div>
+      </div>
+
+      <div class="symptoms-card">
+        <div class="info-card-label">Common symptoms when compromised</div>
+        <div class="symptom-chips">
+          ${d.symptoms.map(s=>`<span class="chip" style="border-color:${d.colorHex}33">${s}</span>`).join('')}
+        </div>
+      </div>
+
+      <div class="cta-bar">
+        <p class="cta-text">${d.cta}</p>
+        <a href="https://drbridgetabbottdc.janeapp.com/#staff_member/1" target="_blank" rel="noopener" class="cta-btn" style="background:${d.colorHex};color:#fff">
+          Book a spinal assessment
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>`;
+}
+
+buildSpine();
+show('cranial');
+</script>
+</body>
+</html>
