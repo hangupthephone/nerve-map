@@ -180,7 +180,7 @@ body {
   padding: 32px 36px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 32px;
 }
 
 .detail-header {
@@ -440,7 +440,7 @@ const data = {
     colorDim: 'var(--cranial-dim)',
     colorHex: '#8b7fd4',
     tag: 'Brain stem origin',
-    title: 'Cranial nerves',
+    title: 'Cranial nerves: CN I-CN XII',
     sub: '12 pairs emerging directly from the brain stem — not the spinal cord',
     hook: 'Your brain has 12 direct nerve connections that bypass your spine entirely. Most people have never heard of them — but they\'re behind some of the most confusing, hard-to-diagnose symptoms people live with for years.',
     levels: ['CN I','CN II','CN III','CN IV','CN V','CN VI','CN VII','CN VIII','CN IX','CN X','CN XI','CN XII'],
@@ -456,9 +456,8 @@ const data = {
     colorHex: '#5a9fd4',
     tag: 'Most mobile region',
     title: 'Cervical spine',
-    sub: '7 vertebrae · 8 nerves · the most mobile region of the spine',
+    sub: '7 vertebrae · 8 nerves: C1-C8 · the most mobile region of the spine',
     hook: 'Your cervical nerves don\'t stay in your neck. They travel to your head, your shoulders, your arms, and all the way into your hands.',
-    levels: ['C1','C2','C3','C4','C5','C6','C7','C8'],
     muscles: ['Neck flexors & extensors','Diaphragm (C3–C5 via phrenic nerve)','Deltoid & rotator cuff (C5)','Biceps (C5–C6)','Wrist extensors (C6)','Triceps (C7)','Hand grip & intrinsics (C8–T1)'],
     organs: ['Diaphragm & breathing (C3–C5)','Heart rate (via cervical sympathetics)','Blood pressure regulation','Head & neck blood vessels','Thyroid gland (cervical sympathetics)','Upper airway & larynx'],
     symptoms: ['Cervicogenic headaches','Migraines & dizziness','Shoulder pain that won\'t resolve','Arm tingling or numbness','"Carpal tunnel" symptoms (C6)','Tricep weakness (C7)','Hand grip weakness','Neck stiffness & pain'],
@@ -471,10 +470,8 @@ const data = {
     colorHex: '#3db389',
     tag: 'Organ innervation region',
     title: 'Thoracic spine',
-    sub: '12 vertebrae · attached to rib cage · direct organ innervation via sympathetic chain',
-    hook: 'The thoracic spine isn\'t just about posture. Nerves from T1 to T12 directly innervate your heart, lungs, stomach, liver, gallbladder, kidneys, and adrenal glands. This is the most underestimated region in the body.',
-    levels: ['T1','T2','T3','T4','T5','T6','T7','T8','T9','T10','T11','T12'],
-    muscles: ['Intercostal muscles (respiration)','Erector spinae (posture)','Rhomboids & mid-traps','Serratus anterior','Abdominal muscles (lower T)','Latissimus dorsi'],
+    sub: '12 vertebrae: T1-12 · direct organ innervation via sympathetic chain',
+    hook: 'The thoracic spine isn\'t just about posture. Nerves from T1 to T12 directly innervate your heart, lungs, stomach, liver, gallbladder, kidneys, and adrenal glands. This is the most underestimated region in the body.',    muscles: ['Intercostal muscles (respiration)','Erector spinae (posture)','Rhomboids & mid-traps','Serratus anterior','Abdominal muscles (lower T)','Latissimus dorsi'],
     organs: ['Heart & coronary vessels (T1–T4)','Lungs & bronchi (T2–T4)','Stomach & esophagus (T5–T6)','Liver & gallbladder (T7–T8)','Spleen & pancreas (T7–T9)','Kidneys & adrenal glands (T10–T11)','Small intestine (T9–T10)'],
     symptoms: ['Mid-back pain & stiffness','Chest tightness or pressure','Rib pain wrapping to front','Difficulty taking deep breaths','Acid reflux / digestive issues','Unexplained nausea','Right shoulder blade pain (liver)','Fatigue & stress dysregulation'],
     cta: 'Thoracic subluxations create nerve interference to major organs. People with persistent digestive, respiratory, or cardiovascular symptoms that haven\'t been fully explained often have a thoracic component that\'s never been assessed.',
@@ -486,7 +483,7 @@ const data = {
     colorHex: '#d4934a',
     tag: 'Primary weight-bearing region',
     title: 'Lumbar spine',
-    sub: '5 vertebrae · the most load-bearing section · L4–L5 is the most herniated disc in the body',
+    sub: '5 vertebrae: L1-5 · the most load-bearing section',
     hook: 'The nerve from L4 travels all the way down into your knee, your shin, and your big toe. That knee pain that came from nowhere? Start looking at L3 and L4 — not the knee.',
     levels: ['L1','L2','L3','L4','L5'],
     muscles: ['Hip flexors (L1–L2)','Quadriceps (L2–L4)','Adductors (L2–L4)','Hamstrings (L4–S1)','Tibialis anterior / foot lift (L4)','Calf complex (L5–S1)','Glutes (L4–S1)'],
@@ -499,11 +496,10 @@ const data = {
     color: 'var(--sacral)',
     colorDim: 'var(--sacral-dim)',
     colorHex: '#c46a8a',
-    tag: 'Most personal nerve region',
-    title: 'Sacral & coccygeal spine',
-    sub: 'Fused vertebrae forming the pelvic base · governs bladder, bowel, pelvic floor & sexual function',
-    hook: 'The sacral nerves control your bladder, your bowel, your pelvic floor, and your sexual function. This is the most personal and most undertalked region of the spine — and the one most connected to quality of life.',
-    levels: ['S1','S2','S3','S4','S5','Co'],
+    tag: 'Bladder and bowel control',
+    title: 'Sacrum',
+    sub: 'Fused vertebrae forming the pelvic base: S1-S5',
+    hook: 'The sacral nerves control your bladder, your bowel, your pelvic floor, and your sexual function.',
     muscles: ['Gluteus maximus (S1–S2)','Hamstrings (S1–S2)','Calf complex & plantar flexors (S1)','Foot intrinsics (S1–S2)','Pelvic floor muscles (S2–S4)','External anal sphincter (S2–S4)'],
     organs: ['Bladder (detrusor muscle) (S2–S4)','Uterus & cervix (S2–S4)','Prostate & seminal vesicles (S2–S4)','Rectum & sigmoid colon (S2–S4)','External genitalia (S3–S4)','Lower bowel & continence'],
     symptoms: ['Classic sciatica — outer leg (S1)','Calf tightness & plantar fasciitis (S1)','Tailbone pain / coccydynia','Urinary urgency without infection','Incomplete bladder emptying','Pelvic floor dysfunction','Painful intercourse','Erectile / sexual dysfunction','Bowel urgency or incontinence'],
