@@ -77,7 +77,7 @@ body {
 .header-sub {
   font-size: 17px;
   color: var(--muted);
-  max-width: 640px;
+  max-width: 800px;
   margin: 0 auto;
   line-height: 1.7;
 }
@@ -225,7 +225,6 @@ body {
 }
 .hook-quote p {
   font-family: 'DM Serif Display', serif;
-  font-style: italic;
   font-size: 17px;
   line-height: 1.65;
   color: var(--text);
@@ -376,7 +375,7 @@ body {
   <header class="header">
     <p class="header-eyebrow">Chiropractic Education</p>
     <h1>Your nervous system<br>controls <em>everything.</em></h1>
-    <p class="header-sub">Select a region to explore which muscles, organs, and functions each section of your spine governs — and the symptoms that arise when those nerves are compromised.</p>
+    <p class="header-sub">Select a region to explore which muscles, organs, and functions each section of your spine governs, and the symptoms that can arise when those nerves are compromised.</p>
   </header>
 
   <div class="main-grid">
@@ -470,7 +469,7 @@ const data = {
     colorHex: '#3db389',
     tag: 'Organ innervation region',
     title: 'Thoracic spine',
-    sub: '12 vertebrae · 12 nerves: T1-12',
+    sub: '12 vertebrae · 12 nerves: T1-T12',
     hook: 'The thoracic spine isn\'t just about posture. Nerves from this region directly innervate your heart, lungs, stomach, liver, gallbladder, kidneys, and adrenal glands.',    
     muscles: ['Abdominal muscles', 'Respiratory muscles','Upper back & postural muscles)'],
     organs: ['Heart','Lungs','Stomach','Esophagus','Liver & gallbladder','Spleen & pancreas','Kidneys & adrenal glands','Small intestine)'],
@@ -483,7 +482,7 @@ const data = {
     colorHex: '#d4934a',
     tag: 'Primary weight-bearing region',
     title: 'Lumbar spine',
-    sub: '5 vertebrae · 5 nerves: L1-5',
+    sub: '5 vertebrae · 5 nerves: L1-L5',
     hook: 'The nerves from your lower back travel the entire length of your leg, from your hip all the way down to your toes.',
     levels: ['L1','L2','L3','L4','L5'],
     muscles: ['Hip flexors','Quadriceps','Adductors','Hamstrings','Foot lift via tibialis anterior','Calves','Glutes'],
@@ -576,7 +575,7 @@ function show(region) {
       </div>
 
       <div class="hook-quote" style="border-color:${d.colorHex}">
-        <p>"${d.hook}"</p>
+        <p>${d.hook}</p>
       </div>
 
       <div class="info-grid">
@@ -587,7 +586,7 @@ function show(region) {
           </ul>
         </div>
         <div class="info-card">
-          <div class="info-card-label">What these nerves control</div>
+          <div class="info-card-label">Organs & systems innervated</div>
           <ul>
             ${d.organs.map(o=>`<li><span style="background:${d.colorHex};width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:5px;display:inline-block"></span>${o}</li>`).join('')}
           </ul>
