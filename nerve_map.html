@@ -77,7 +77,7 @@ body {
 .header-sub {
   font-size: 17px;
   color: var(--muted);
-  max-width: 480px;
+  max-width: 640px;
   margin: 0 auto;
   line-height: 1.7;
 }
@@ -444,12 +444,11 @@ const data = {
     colorHex: '#8b7fd4',
     tag: 'Brain and brainstem origin',
     title: 'Cranial nerves',
-    sub: '12 pairs emerging directly from the brain and brainstem · CN I-CN XII',
-    hook: 'Your brain has 12 direct nerve connections that bypass your spine entirely.',
+    sub: '12 cranial nerve pairs: CN I-CN XII',
+    hook: 'These nerves emerge directly from your brain and brainstem, controlling vision, smell, taste, hearing, facial movement, and swallowing.',
     muscles: ['Muscles of facial expression','Eye movement & focus','Jaw & chewing muscles','Tongue movement','Head rotation & shoulder elevation','Swallowing & voice production'],
     organs: ['Vision','Hearing & balance','Heart rate regulation','Lung & airway control','Stomach & gut motility','Smell & taste'],
-    symptoms: ['Chronic headaches & migraines','Tinnitus (ear ringing)','Vertigo & dizziness','Jaw pain / TMJ clicking','Facial numbness or tingling','Unexplained digestive issues','Vision disturbances','Difficulty swallowing','Neck & shoulder tension'],
-    cta: 'Upper cervical misalignment creates mechanical stress on the brain stem — where all 12 cranial nerves originate. This is why adjusting C1 and C2 can resolve symptoms that seem completely unrelated to your spine.',
+    symptoms: ['Chronic headaches & migraines','Tinnitus (ear ringing)','Vertigo & dizziness','Jaw pain or clicking','Facial numbness or tingling','Digestive issues','Vision disturbances','Difficulty swallowing','Neck & shoulder tension'],
     spineSegs: [0,1],
   },
   cervical: {
@@ -458,12 +457,11 @@ const data = {
     colorHex: '#5a9fd4',
     tag: 'Most mobile region',
     title: 'Cervical spine',
-    sub: '7 vertebrae · 8 nerves: C1-C8 · the most mobile region of the spine',
+    sub: '7 vertebrae · 8 nerves: C1-C8',
     hook: 'Your cervical nerves don\'t stay in your neck. They travel to your head, your shoulders, your arms, and all the way into your hands.',
     muscles: ['Neck flexors & extensors','Diaphragm','Deltoid & rotator cuff','Biceps','Wrist extensors','Triceps','Hand grip & intrinsics'],
     organs: ['Diaphragm & breathing','Heart rate','Blood pressure regulation','Head & neck blood vessels','Thyroid gland','Upper airway & larynx'],
     symptoms: ['Cervicogenic headaches','Migraines & dizziness','Shoulder pain that won\'t resolve','Arm tingling or numbness','"Carpal tunnel" symptoms','Tricep weakness','Hand grip weakness','Neck stiffness & pain'],
-    cta: 'If you\'ve been treating headaches, shoulder pain, arm tingling, or hand numbness separately without improvement — and nobody has assessed your cervical spine — that is the missing piece.',
     spineSegs: [2,3,4,5,6,7,8],
   },
   thoracic: {
@@ -472,12 +470,11 @@ const data = {
     colorHex: '#3db389',
     tag: 'Organ innervation region',
     title: 'Thoracic spine',
-    sub: '12 vertebrae: T1-12 · direct organ innervation via sympathetic chain',
-    hook: 'The thoracic spine isn\'t just about posture. Nerves from T1 to T12 directly innervate your heart, lungs, stomach, liver, gallbladder, kidneys, and adrenal glands.',    
+    sub: '12 vertebrae · 12 nerves: T1-12',
+    hook: 'The thoracic spine isn\'t just about posture. Nerves from this region directly innervate your heart, lungs, stomach, liver, gallbladder, kidneys, and adrenal glands.',    
     muscles: ['Abdominal muscles', 'Respiratory muscles','Upper back & postural muscles)'],
     organs: ['Heart','Lungs','Stomach','Esophagus','Liver & gallbladder','Spleen & pancreas','Kidneys & adrenal glands','Small intestine)'],
-    symptoms: ['Mid-back pain & stiffness','Chest tightness or pressure','Rib pain wrapping to front','Difficulty taking deep breaths','Acid reflux', 'Digestive issues','Unexplained nausea','Shoulder blade pain','Fatigue & stress dysregulation'],
-    cta: 'Thoracic misalignments create nerve interference to major organs. People with persistent digestive, respiratory, or cardiovascular symptoms that haven\'t been fully explained often have a thoracic component that\'s never been assessed.',
+    symptoms: ['Mid-back pain & stiffness','Chest tightness or pressure','Rib pain wrapping to front','Difficulty taking deep breaths','Acid reflux', 'Digestive issues','Nausea','Shoulder blade pain','Fatigue & stress dysregulation'],
     spineSegs: [9,10,11,12,13,14,15,16,17,18,19,20],
   },
   lumbar: {
@@ -486,13 +483,12 @@ const data = {
     colorHex: '#d4934a',
     tag: 'Primary weight-bearing region',
     title: 'Lumbar spine',
-    sub: '5 vertebrae: L1-5 · the most load-bearing section',
-    hook: 'The nerve from L4 travels all the way down into your knee, your shin, and your big toe. That knee pain that came from nowhere? Start looking at L3 and L4 — not the knee.',
+    sub: '5 vertebrae · 5 nerves: L1-5',
+    hook: 'The nerves from your lower back travel the entire length of your leg, from your hip all the way down to your toes.',
     levels: ['L1','L2','L3','L4','L5'],
     muscles: ['Hip flexors','Quadriceps','Adductors','Hamstrings','Foot lift via tibialis anterior','Calves','Glutes'],
     organs: ['Large intestine & colon','Appendix region','Bladder','Reproductive organs','Inguinal & groin region','Uterus'],
     symptoms: ['Low back pain','Hip pain & tightness','Groin or inner thigh aching','Anterior knee pain','Shin pain or shin splints','Sciatica','Foot tingling or numbness','Calf cramping'],
-    cta: 'When someone comes in with knee pain, shin pain, foot pain, or hip pain — and I trace it up the leg to a lumbar nerve root — treating the knee is treating the symptom. Find the source.',
     spineSegs: [21,22,23,24,25],
   },
   sacral: {
@@ -501,12 +497,11 @@ const data = {
     colorHex: '#c46a8a',
     tag: 'Bladder and bowel control',
     title: 'Sacrum',
-    sub: 'Fused vertebrae forming the pelvic base: S1-S5',
+    sub: 'Fused vertebrae forming the pelvic base · 5 nerves: S1-S5',
     hook: 'The sacral nerves control your bladder, your bowel, and pelvic floor.',
-    muscles: ['Gluteus maximus','Hamstrings','Calves & plantar flexors ','Foot stabilization & fine toe movement via intrinsics','Pelvic floor muscles'],
+    muscles: ['Glutes','Hamstrings','Calves','Foot stabilization & fine toe movement muscles','Pelvic floor muscles'],
     organs: ['Bladder','Uterus','Prostate','Rectum & sigmoid colon','Lower bowel & continence'],
     symptoms: ['Sciatica','Calf tightness & plantar fasciitis','Tailbone pain','Urinary urgency','Incomplete bladder emptying','Pelvic floor dysfunction','Bowel urgency or incontinence'],
-    cta: 'People with bladder urgency, pelvic floor issues, or sexual health concerns rarely have their sacrum assessed. Many see significant improvement after sacral and lumbar chiropractic care — because clearing the nerve interference changes the function of the organs it serves.',
     spineSegs: [26,27,28,29,30],
   },
 };
@@ -592,7 +587,7 @@ function show(region) {
           </ul>
         </div>
         <div class="info-card">
-          <div class="info-card-label">Organs &amp; systems innervated</div>
+          <div class="info-card-label">What these nerves control</div>
           <ul>
             ${d.organs.map(o=>`<li><span style="background:${d.colorHex};width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:5px;display:inline-block"></span>${o}</li>`).join('')}
           </ul>
@@ -604,16 +599,7 @@ function show(region) {
         <div class="symptom-chips">
           ${d.symptoms.map(s=>`<span class="chip" style="border-color:${d.colorHex}33">${s}</span>`).join('')}
         </div>
-      </div>
-
-      <div class="cta-bar">
-        <p class="cta-text">${d.cta}</p>
-        <a href="https://drbridgetabbottdc.janeapp.com/#staff_member/1" target="_blank" rel="noopener" class="cta-btn" style="background:${d.colorHex};color:#fff">
-          Book an appointment
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>`;
+      </div>;
 }
 
 buildSpine();
