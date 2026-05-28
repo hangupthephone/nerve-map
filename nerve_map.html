@@ -292,27 +292,6 @@ body {
   color: var(--text);
 }
 
-/* levels strip */
-.levels-strip {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-.level-item {
-  font-size: 13px;
-  font-weight: 500;
-  padding: 5px 12px;
-  border-radius: 6px;
-  border: 1px solid var(--border2);
-  color: var(--muted);
-  transition: all .2s;
-  cursor: default;
-}
-.level-item:hover {
-  border-color: var(--border2);
-  color: var(--text);
-}
-
 /* CTA */
 .cta-bar {
   margin-top: 4px;
@@ -477,8 +456,8 @@ const data = {
     colorHex: '#5a9fd4',
     tag: 'Most mobile region',
     title: 'Cervical spine',
-    sub: '7 vertebrae · 8 nerve roots · the most mobile region of the spine',
-    hook: 'Your cervical nerve roots don\'t stay in your neck. They travel into your head, your shoulders, your arms, and all the way into your hands. One region — five different pain locations.',
+    sub: '7 vertebrae · 8 nerves · the most mobile region of the spine',
+    hook: 'Your cervical nerves don\'t stay in your neck. They travel to your head, your shoulders, your arms, and all the way into your hands.',
     levels: ['C1','C2','C3','C4','C5','C6','C7','C8'],
     muscles: ['Neck flexors & extensors','Diaphragm (C3–C5 via phrenic nerve)','Deltoid & rotator cuff (C5)','Biceps (C5–C6)','Wrist extensors (C6)','Triceps (C7)','Hand grip & intrinsics (C8–T1)'],
     organs: ['Diaphragm & breathing (C3–C5)','Heart rate (via cervical sympathetics)','Blood pressure regulation','Head & neck blood vessels','Thyroid gland (cervical sympathetics)','Upper airway & larynx'],
@@ -538,7 +517,7 @@ function buildSpine() {
   const vis = document.getElementById('spineVis');
   // segments: 2 cranial indicator, 7 cervical, 12 thoracic, 5 lumbar, 5 sacral = 31
   const segs = [
-    {r:'cranial',count:2},{r:'cervical',count:7},{r:'thoracic',count:12},{r:'lumbar',count:5},{r:'sacral',count:5}
+    {r:'cranial',count:1},{r:'cervical',count:7},{r:'thoracic',count:12},{r:'lumbar',count:5},{r:'sacral',count:5}
   ];
   let idx = 0;
   segs.forEach(s => {
@@ -604,13 +583,6 @@ function show(region) {
 
       <div class="hook-quote" style="border-color:${d.colorHex}">
         <p>"${d.hook}"</p>
-      </div>
-
-      <div>
-        <div class="info-card-label" style="font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Levels</div>
-        <div class="levels-strip">
-          ${d.levels.map(l=>`<div class="level-item" style="border-color:${d.colorHex}22;color:${d.colorHex}">${l}</div>`).join('')}
-        </div>
       </div>
 
       <div class="info-grid">
